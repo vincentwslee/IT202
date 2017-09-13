@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About Me</title>
+    </head>
+    
+    <body>
+        <h1>Vincent Lee</h1>
+        <img src="pic.jpg" alt="pic.jpg" width="104" height="142">
+        
+        <p>My favorite dogs</p>
+        <ol>
+        <li><a href="https://en.wikipedia.org/wiki/Golden_Retriever" target="_blank">Golden Retriever</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Shiba_Inu" target="_blank">Shiba Inu</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/German_Shepherd" target="_blank">German Shepherd</a></li>
+        </ol>
+        
+    </body>
+</html>
