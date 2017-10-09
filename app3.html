@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info windows</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #divSearch {
+        font-size: 3em;
+        
+      }
+    </style>
+  </head>
+  <body>
+    <div id="divSearch">
+      <input type="text" id="zip" placeholder="Enter a Chicago zip code">
+      <button id="btnSearch">Search</button>
+    </div>
+    
+    
+    <div id="map"></div>
+    <script>
+
+      // This example displays a marker at the center of Australia.
+      // When the user clicks the marker, an info window opens.
+
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        
+
+
+        //   API call
+        $.get("https://data.cityofchicago.org/resource/cdmx-wzbz.json?zip_code=" + $("#zip").val(), function(response) {
+           //console.log(response);
+           var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 9,
+              center: {lat: parseFloat(response[0].latitude), lng: parseFloat(response[0].longitude)}
+            });
+           
+           
+           $.each(response, function(i,v) {
+              
+              var contentString = "<h2>" + v.service_request_number
+                    + "</h2><br>" + v.street_address
+                    + "<br>" + v.status;
+              
+              var infowindow = new google.maps.InfoWindow({
+                content: contentString
+              });
+      
+              var marker = new google.maps.Marker({
+                position: {lat: parseFloat(v.latitude), lng: parseFloat(v.longitude)},
+                map: map,
+                title: 'Uluru (Ayers Rock)'
+              });
+                
+              marker.addListener('click', function() {
+                infowindow.open(map, marker);
+              });             
+             
+           });
+        
+      });
+
+
+
+ 
+      }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      $("#btnSearch").on("click", initMap);
+    </script>
+
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWPNIhZ3r-IJP0fW-zMmqHhMOuoRirtf4">
+    </script>
+  </body>
+</html>
